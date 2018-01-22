@@ -13,15 +13,15 @@ from selenium.webdriver.common.by import By
 os.system('clear')                                       
 
 bro = webdriver.Chrome()                                 
-bro.set_window_size(1090,1050)
-bro.set_window_position(830, 30)
-bro.get('http://www.instagram.com/')
+bro.get('https://www.instagram.com/')
+bro.set_window_size(50,100)
+#bro.set_window_position(830, 30)
 
-bro = webdriver.Chrome()
+input('Preparação...')
 
 perf=bro.find_elements_by_xpath("//a[@class='_2g7d5 notranslate _95hvo']")
 
-links=[]
+links=[];i=0
 
 for perfil in perf:
   link=perfil.get_attribute("href")
@@ -29,11 +29,15 @@ for perfil in perf:
     links.append(link)
 
 for page in links:
-  num=len(links);i+=1
+  tempo=random.randrange(5,40)
+  num=len(links)
   bro.get(page)
-  time.sleep(random.randrange(5,40))
+  time.sleep(2)
   try:
-    bro.find_elements(By.XPATH, '//button[text()="Seguir"]')[0].click()
+    bro.find_elements(By.XPATH, '//button[text()="Seguir"]')[0].click();i+=1
     print('[+]',str(i),'de',str(num),'- Seguindo!')
+    for x in range(tempo):
+      time.sleep(1)
+      print('[_]',str(tempo-x),'restantes...', end='\r')
   except:
     print('[!]',str(i),'de',str(num),'- Já segue.')
